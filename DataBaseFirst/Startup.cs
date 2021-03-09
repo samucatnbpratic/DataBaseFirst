@@ -25,12 +25,10 @@ namespace DataBaseFirst
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-
-            var connectionString = Configuration.GetConnectionString("ConnectionStrings:sqlServer");
+            var connectionString = Configuration.GetConnectionString("SqlServerConnection");
 
             services.AddDbContext<dbpdvContext>(options =>
-               options.UseSqlServer(Configuration.GetConnectionString(connectionString)));
+               options.UseSqlServer(connectionString));
 
             services.AddControllersWithViews();
         }
