@@ -9,7 +9,7 @@ namespace DataBaseFirst.Models
     {
         public Produto()
         {
-            ProdutosFornecedores = new HashSet<ProdutosFornecedore>();
+            ProdutoFornecedor = new HashSet<ProdutoFornecedor>();
         }
 
         public int IdProduto { get; set; }
@@ -17,7 +17,8 @@ namespace DataBaseFirst.Models
         public decimal? Quantidade { get; set; }
         public decimal? PrecoVenda { get; set; }
         public decimal? PrecoCusto { get; set; }
+        public string Unidade { get; set; }
 
-        public virtual ICollection<ProdutosFornecedore> ProdutosFornecedores { get; set; }
+        public virtual ICollection<ProdutoFornecedor> ProdutoFornecedor { get; set; }
     }
 }

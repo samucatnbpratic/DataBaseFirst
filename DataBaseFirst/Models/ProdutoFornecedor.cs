@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace DataBaseFirst.Models
 {
-    public partial class ProdutosFornecedore
+    public partial class ProdutoFornecedor
     {
         public int IdProduto { get; set; }
         public int IdFornec { get; set; }
         public string FornecCodProd { get; set; }
         public string FornecEanTrib { get; set; }
 
-        public virtual Fornecedore IdFornecNavigation { get; set; }
+        public virtual Fornecedor IdFornecNavigation { get; set; }
         public virtual Produto IdProdutoNavigation { get; set; }
     }
 }

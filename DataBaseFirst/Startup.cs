@@ -23,14 +23,34 @@ namespace DataBaseFirst
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        /*
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetConnectionString("SqlServerConnection");
 
             services.AddDbContext<dbpdvContext>(options =>
                options.UseSqlServer(connectionString));
-
+          
             services.AddControllersWithViews();
+        }
+        */
+
+        /// <summary>
+        /// Este metodo registra uma DbContext subclasse chamada AppDbContext 
+        /// como um serviço com escopo no provedor de serviços de aplicativo ASP.NET Core 
+        /// (também conhecido como o contêiner de injeção de dependência). O contexto é 
+        /// configurado para usar o provedor de banco de dados SQL Server e lerá a cadeia de 
+        /// conexão da configuração de ASP.NET Core. Normalmente, não importa onde a ConfigureServices 
+        /// chamada AddDbContext é feita.
+        /// </summary>
+        /// <param name="services"></param>
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllers();
+            services.AddAuthorization();
+            var connectionString = Configuration.GetConnectionString("SqlServerConnection");
+            services.AddDbContext<AppDbContext>(
+                options => options.UseSqlServer(connectionString));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

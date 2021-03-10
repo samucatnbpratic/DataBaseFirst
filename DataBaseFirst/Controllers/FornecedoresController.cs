@@ -9,22 +9,22 @@ using DataBaseFirst.Models;
 
 namespace DataBaseFirst.Controllers
 {
-    public class ProdutosController : Controller
+    public class FornecedoresController : Controller
     {
-        private readonly dbpdvContext _context;
+        private readonly AppDbContext _context;
 
-        public ProdutosController(dbpdvContext context)
+        public FornecedoresController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Produtos
+        // GET: Fornecedores
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Produtos.ToListAsync());
+            return View(await _context.Fornecedor.ToListAsync());
         }
 
-        // GET: Produtos/Details/5
+        // GET: Fornecedores/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace DataBaseFirst.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos
-                .FirstOrDefaultAsync(m => m.IdProduto == id);
-            if (produto == null)
+            var fornecedor = await _context.Fornecedor
+                .FirstOrDefaultAsync(m => m.IdFornec == id);
+            if (fornecedor == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // GET: Produtos/Create
+        // GET: Fornecedores/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Produtos/Create
+        // POST: Fornecedores/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdProduto,NomeProd,Quantidade,PrecoVenda,PrecoCusto")] Produto produto)
+        public async Task<IActionResult> Create([Bind("IdFornec,NomeFornec")] Fornecedor fornecedor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(produto);
+                _context.Add(fornecedor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // GET: Produtos/Edit/5
+        // GET: Fornecedores/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace DataBaseFirst.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos.FindAsync(id);
-            if (produto == null)
+            var fornecedor = await _context.Fornecedor.FindAsync(id);
+            if (fornecedor == null)
             {
                 return NotFound();
             }
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // POST: Produtos/Edit/5
+        // POST: Fornecedores/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdProduto,NomeProd,Quantidade,PrecoVenda,PrecoCusto")] Produto produto)
+        public async Task<IActionResult> Edit(int id, [Bind("IdFornec,NomeFornec")] Fornecedor fornecedor)
         {
-            if (id != produto.IdProduto)
+            if (id != fornecedor.IdFornec)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace DataBaseFirst.Controllers
             {
                 try
                 {
-                    _context.Update(produto);
+                    _context.Update(fornecedor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProdutoExists(produto.IdProduto))
+                    if (!FornecedorExists(fornecedor.IdFornec))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace DataBaseFirst.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // GET: Produtos/Delete/5
+        // GET: Fornecedores/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace DataBaseFirst.Controllers
                 return NotFound();
             }
 
-            var produto = await _context.Produtos
-                .FirstOrDefaultAsync(m => m.IdProduto == id);
-            if (produto == null)
+            var fornecedor = await _context.Fornecedor
+                .FirstOrDefaultAsync(m => m.IdFornec == id);
+            if (fornecedor == null)
             {
                 return NotFound();
             }
 
-            return View(produto);
+            return View(fornecedor);
         }
 
-        // POST: Produtos/Delete/5
+        // POST: Fornecedores/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produto = await _context.Produtos.FindAsync(id);
-            _context.Produtos.Remove(produto);
+            var fornecedor = await _context.Fornecedor.FindAsync(id);
+            _context.Fornecedor.Remove(fornecedor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProdutoExists(int id)
+        private bool FornecedorExists(int id)
         {
-            return _context.Produtos.Any(e => e.IdProduto == id);
+            return _context.Fornecedor.Any(e => e.IdFornec == id);
         }
     }
 }
