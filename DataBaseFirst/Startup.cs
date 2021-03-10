@@ -47,6 +47,7 @@ namespace DataBaseFirst
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddMvc();
             services.AddAuthorization();
             var connectionString = Configuration.GetConnectionString("SqlServerConnection");
             services.AddDbContext<AppDbContext>(
